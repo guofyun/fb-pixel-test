@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Pixel 测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #166fe5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meta Pixel 测试页面</h1>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+
+        // 添加用户信息
+        const userData = {
+            em: 'jason.li@gmail.com',    // 邮箱
+            ph: '13800138000',         // 电话
+            fn: 'Zhang',               // 名
+            ln: 'San',                 // 姓
+            ge: 'm',                   // 性别
+            db: '19900101',            // 生日
+            ct: 'Shanghai',            // 城市
+            st: 'Shanghai',            // 省份
+            zp: '200000'               // 邮编
+        };
+
+        fbq('init', '1584501022259891', userData);
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1584501022259891&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <div>
+        <h2>测试事件按钮</h2>
+        <button class="button" onclick="fbq('track', 'ViewContent', {
+            content_name: '测试内容',
+            ...userData
+        })">测试 ViewContent</button>
+        <button class="button" onclick="fbq('track', 'AddToCart', {
+            content_type: 'product',
+            content_ids: ['123'],
+            ...userData
+        })">测试 AddToCart</button>
+        <button class="button" onclick="fbq('track', 'Purchase', {
+            currency: 'USD',
+            value: 99.99,
+            ...userData
+        })">测试 Purchase</button>
+        <button class="button" onclick="fbq('track', 'Lead', userData)">测试 Lead</button>
+        <button class="button" onclick="fbq('track', 'CompleteRegistration', userData)">测试 CompleteRegistration</button>
+    </div>
+
+    <div>
+        <h2>事件说明</h2>
+        <ul>
+            <li>ViewContent: 查看内容事件</li>
+            <li>AddToCart: 添加购物车事件</li>
+            <li>Purchase: 购买事件（带有金额信息）</li>
+            <li>Lead: 潜在客户事件</li>
+            <li>CompleteRegistration: 完成注册事件</li>
+        </ul>
+    </div>
+</body>
+</html>
